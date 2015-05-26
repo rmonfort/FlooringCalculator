@@ -1,4 +1,5 @@
-﻿using System;
+﻿using FlooringCalculator.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -10,21 +11,20 @@ namespace FlooringCalculator.Controllers
     {
         public ActionResult Index()
         {
-            return View();
+            return View(new Flooring());
         }
 
-        public ActionResult About()
+        // GET
+        public ActionResult Calculate(double length = 0, double width = 0, decimal costPerUnitOfFlooring = 0)
         {
-            ViewBag.Message = "Your application description page.";
-
-            return View();
-        }
-
-        public ActionResult Contact()
-        {
-            ViewBag.Message = "Your contact page.";
-
-            return View();
+            var calculation = new Flooring
+            {
+                Length = length,
+                Width = width,
+                CostPerUnitOfFlooring = costPerUnitOfFlooring,
+                TotalCost = (decimal)length * (decimal)width * costPerUnitOfFlooring
+            };
+            return View(calculation);
         }
     }
 }

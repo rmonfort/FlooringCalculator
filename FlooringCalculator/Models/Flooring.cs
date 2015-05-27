@@ -17,11 +17,12 @@ namespace FlooringCalculator.Models
         public virtual double Length { get; set; }
 
         [Required]
+        [DataType(DataType.Currency)]
         [Range(typeof(decimal), "0", "79228162514264337593543950335")]
         [Display(Name = "Cost Per Unit Of Flooring")]
         public virtual decimal CostPerUnitOfFlooring { get; set; }
 
-        [DisplayFormat(ApplyFormatInEditMode=true, DataFormatString="{0:c}")]
+        [DataType(DataType.Currency)]
         public virtual decimal TotalCost { get; set; }
 
         public Flooring()

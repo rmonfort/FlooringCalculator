@@ -9,22 +9,22 @@ namespace FlooringCalculator.Controllers
 {
     public class HomeController : Controller
     {
+        // GET: Home/Index
         public ActionResult Index()
         {
             return View(new Flooring());
         }
 
-        // GET
-        public ActionResult Calculate(double length = 0, double width = 0, decimal costPerUnitOfFlooring = 0)
+        // POST: Home/Index
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Index([Bind(Include = "Width,Length,CostPerUnitOfFlooring")] Flooring floor)
         {
-            var calculation = new Flooring
+            if (ModelState.IsValid)
             {
-                Length = length,
-                Width = width,
-                CostPerUnitOfFlooring = costPerUnitOfFlooring,
-                TotalCost = (decimal)length * (decimal)width * costPerUnitOfFlooring
-            };
-            return View(calculation);
+                floor.TotalCost = (decimal)floor.Width * (decimal)floor.Length * floor.CostPerUnitOfFlooring;
+            }
+            return View(floor);
         }
     }
 }
